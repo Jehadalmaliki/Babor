@@ -45,10 +45,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bid::class, 'bidder_id');
     }
-
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }   
     // public const PASSWORD_VALIDATION_RULES  = [
     //     'password'        => 'required|min:5',
     //     'confirm_password'=> 'same:password'
     // ];
-    
+
 }
