@@ -10,7 +10,7 @@
       class="form-control input-sm"
       placeholder="Type your message here..."
       v-model="newMessage"
-      //Call sendMessage() when the enter key is pressed.
+   
       @keyup.enter="sendMessage"
     />
     //Button
