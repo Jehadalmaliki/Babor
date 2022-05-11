@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\QustionController;
 use App\Http\Controllers\user\UserAuctionController;
+use App\Http\Controllers\chat\ChatsController;
 // use \Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Authentication\authcontroller;
 use App\Http\Controllers\Admin\CarCharacteristicsController;
@@ -38,9 +39,9 @@ Route::get('/services', function () {
     return view('Front.services');
 });
 
-Route::get('/offer', function () {
-    return view('Front.offer');
-});
+// Route::get('/offer', function () {
+//     return view('Front.offer');
+// });
 
 Route::get('/about', function () {
     return view('Front.about');
@@ -53,6 +54,7 @@ Route::get('/services', [SiteController::class, 'ServicesShow']);
 Route::get('/', [SiteController::class, 'home'])->name('/');
 Route::get('/FAQ', [SiteController::class, 'questionShow']);
 Route::get('/auctions/available', [SiteController::class, 'availableAuctions'])->name('site.available.auction');
+Route::get('/offer', [SiteController::class, 'home'])->name('site.offer');;
 Route::get('/auction/{id}', [SiteController::class, 'auctionShow'])->name('site.auction.details');
 Route::view('/soon', 'Front.soon');
 Route::view('/contact', 'Front.contact');
@@ -135,6 +137,12 @@ Route::post('/forget-password', [ForgotPasswordController::class,'postEmail'])->
 Route::get('/reset-password/{token}', [ResetPasswordController::class,'getPassword']);
 Route::post('/reset-password', [ResetPasswordController::class,'updatePassword']);
 Route::get('/verify_account/{token}',[AuthController::class,'verifyAccount'])->name('verify_account');
+// chat app route
+Route::get('/chat', [ChatsController::class, 'index']);
+Route::get('/messages', [ChatsController::class, 'fetchMessages']);
+Route::post('/messages', [ChatsController::class, 'sendMessage']);
+
+
 
 //fallback route
 Route::fallback(function () {
