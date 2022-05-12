@@ -14,14 +14,14 @@ class AccountsController extends Controller
         return view('admin.accounts.users', ['users' => $user]);
     }
 
-    // Block user
+    /// Block user
     public function destroy($user_id)
     {
         $user=User::find($user_id);
         if(!$user)
-            return abort('404');     
+            return abort('404');
         $user->is_active*=-1;
         if($user->save())
             return back();
-    }  
+    }
 }

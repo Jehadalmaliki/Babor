@@ -39,7 +39,7 @@
                         <span class="count"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
-                        <p class="mb-0 font-weight-normal float-left dropdown-header">المحادثات</p>
+                        <p class="mb-0 font-weight-normal float-left dropdown-header"><a href="{{ url('/chat') }}">المحادثات</a></p>
                         <a class="dropdown-item">
                             <div class="item-thumbnail">
                                 <img src=" {{ @asset('assets/images/faces/face4.jpg') }}" alt="image"
