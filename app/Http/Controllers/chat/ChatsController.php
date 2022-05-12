@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
+use App\Events\MessageSent;
 class ChatsController extends Controller
 {
     //
@@ -30,5 +31,6 @@ class ChatsController extends Controller
             'message' => $request->input('message')
         ]);
         return ['status' => 'Message Sent!'];
+        broadcast(new MessageSent($user, $message))->toOthers();
     }
 }
