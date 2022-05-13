@@ -9,6 +9,9 @@
         <div class="card-footer">
             <chat-form v-on:messagesent="addMessage" :user="{{ Auth::user() }}"></chat-form>
         </div>
+        {{-- <span v-show="typing" class="help-block" style="font-style: italic;">
+            @{{ user }} is typing...
+        </span> --}}
     </div>
 </div>
 @endsection

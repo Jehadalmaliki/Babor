@@ -5531,16 +5531,24 @@ var app = new Vue({
   },
   //Upon initialisation, run fetchMessages().
   created: function created() {
+    var _this = this;
+
     this.fetchMessages();
+    window.Echo["private"]('chat').listen('MessageSent', function (e) {
+      _this.messages.push({
+        message: e.message.message,
+        user: e.user
+      });
+    });
   },
   methods: {
     fetchMessages: function fetchMessages() {
-      var _this = this;
+      var _this2 = this;
 
       //GET request to the messages route in our Laravel server to fetch all the messages
       axios.get('/messages').then(function (response) {
         //Save the response in the messages array to display on the chat view
-        _this.messages = response.data;
+        _this2.messages = response.data;
       });
     },
     //Receives the message that was emitted from the ChatForm Vue component
