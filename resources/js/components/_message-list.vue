@@ -1,18 +1,18 @@
-<template>
-  <div>
+<template >
+  <div >
       <v-list
-              class="p-3"
+              class="p-3 "
               v-for="(message, index) in allMessages"
               :key="index"
       >
-          <div class="message-wrapper">
+          <div class="message-wrapper jehad">
               <v-flex>
-                  <span class="small font-italic">{{message.user.name}}</span>
+                  <span class="small font-italic ">{{message.user.name}}</span>
               </v-flex>
 
 
-              <div v-if="message.message" class="text-message-container">
-                  <v-chip :color="(user.id===message.user_id)?'green':'red'" text-color="white"  class="ma-2">
+              <div v-if="message.message" class="text-message-container ">
+                  <v-chip :color="(user.id===message.user_id)?'green':'red'" text-color="green"  class="ma-2 babor">
                       {{message.message}}
 
                   </v-chip>
@@ -53,5 +53,11 @@
     max-width: 300px;
     max-height: 200px;
 }
-
+.babor{
+ color:blue;
+   background-color: rgb(205, 226, 43);
+}
+.jehad{
+    background-color: blueviolet;
+}
 </style>

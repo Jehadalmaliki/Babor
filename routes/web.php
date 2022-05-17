@@ -158,12 +158,12 @@ Route::group(['middleware'=>'auth'],function(){
             Route::get('/bids', [BidController::class, 'index'])->name('user.show.bids');
             Route::post('/bid/{id}', [BidController::class, 'create'])->name('user.place.bid');
             Route::post('/auction/{id}/buy', [PaymentController::class, 'buy'])->name('user.buy.auction');
-           
+
             Route::get('/wallet', function () {
                 return view('Admin.wallet.wallet');
             });
-            
-            
+
+
             //API Response
             Route::get('/payment/success/{id}/{res}', [PaymentController::class, 'success'])->name('payment.success');
             Route::get('/payment/failed/{res}', [PaymentController::class, 'failed'])->name('payment.failed');
@@ -208,11 +208,11 @@ Route::fallback(function () {
 
 // });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/private',[ App\Http\Controllers\HomeController::class, 'private'])->name('private');
-Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/private',[ App\Http\Controllers\HomeController::class, 'private'])->name('private');
+// Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
 
-Route::get('messages', [App\Http\Controllers\MessageController::class, 'fetchMessages']);
-Route::post('messages', [App\Http\Controllers\MessageController::class, 'sendMessage']);
-Route::get('/private-messages/{user}', [App\Http\Controllers\MessageController::class, 'privateMessages'])->name('privateMessages');
-Route::post('/private-messages/{user}',  [App\Http\Controllers\MessageController::class, 'sendPrivateMessage'])->name('privateMessages.store');
+// Route::get('messages', [App\Http\Controllers\MessageController::class, 'fetchMessages']);
+// Route::post('messages', [App\Http\Controllers\MessageController::class, 'sendMessage']);
+// Route::get('/private-messages/{user}', [App\Http\Controllers\MessageController::class, 'privateMessages'])->name('privateMessages');
+// Route::post('/private-messages/{user}',  [App\Http\Controllers\MessageController::class, 'sendPrivateMessage'])->name('privateMessages.store');

@@ -1,17 +1,20 @@
 <template>
   <v-layout row>
-    <v-flex class="online-users" xs3>
+    <v-flex class="online-users " xs3>
       <v-list>
           <v-list-item
             v-for="friend in friends"
-            :color="(friend.id==activeFriend)?'green':''"
+            :color="(friend.id==activeFriend)?'green ':''"
             :key="friend.id"
             v-on:click="activeFriend=friend.id"
           >
             <v-list-item-action>
               <v-icon :color="(onlineFriends.find(user=>user.id===friend.id))?'green':'red'">account_circle</v-icon>
             </v-list-item-action>
-
+<div
+  class="static"
+  v-bind:class="{ active: isActive, 'text-danger': hasError }"
+></div>
             <v-list-item-content>
               <v-list-item-title>{{friend.name}}</v-list-item-title>
             </v-list-item-content>
@@ -110,7 +113,9 @@
         typingClock:null,
         emoStatus:false,
         users:[],
-        token:document.head.querySelector('meta[name="csrf-token"]').content
+        token:document.head.querySelector('meta[name="csrf-token"]').content,
+        isActive: true,
+  hasError: false
 
       }
     },
