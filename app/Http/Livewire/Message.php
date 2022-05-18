@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use \App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use \App\Models\Messages;
 use Livewire\WithFileUploads;
 
 class Message extends Component
@@ -35,26 +36,26 @@ class Message extends Component
     }
 
     public function mountComponent() {
-        if (auth()->user()->is_admin == false) {
-            $this->messages = \App\Models\Message::where('user_id', auth()->id())
+        if (auth()->user()->is_active == false) {
+            $this->messages = \App\Models\Messages::where('user_id', auth()->id())
                                                     ->orWhere('receiver', auth()->id())
                                                     ->orderBy('id', 'DESC')
                                                     ->get();
         } else {
-            $this->messages = \App\Models\Message::where('user_id', $this->clicked_user)
+            $this->messages = \App\Models\Messages::where('user_id', $this->clicked_user)
                                                     ->orWhere('receiver', $this->clicked_user)
                                                     ->orderBy('id', 'DESC')
                                                     ->get();
         }
-        $this->admin = \App\Models\User::where('is_admin', true)->first();
+        $this->admin = \App\Models\User::where('is_active', true)->first();
     }
 
     public function SendMessage() {
-        $new_message = new \App\Models\Message();
+        $new_message = new \App\Models\Messages();
         $new_message->message = $this->message;
         $new_message->user_id = auth()->id();
-        if (!auth()->user()->is_admin == true) {
-            $admin = User::where('is_admin', true)->first();
+        if (!auth()->user()->is_active == true) {
+            $admin = User::where('is_active', true)->first();
             $this->user_id = $admin->id;
         } else {
             $this->user_id = $this->clicked_user->id;
@@ -78,7 +79,7 @@ class Message extends Component
     public function getUser($user_id)
     {
         $this->clicked_user = User::find($user_id);
-        $this->messages = \App\Models\Message::where('user_id', $user_id)->get();
+        $this->messages = \App\Models\Messages::where('user_id', $user_id)->get();
     }
 
     public function resetFile()

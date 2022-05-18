@@ -53,8 +53,9 @@ class User extends Authenticatable  implements Wallet
     //     'password'        => 'required|min:5',
     //     'confirm_password'=> 'same:password'
     // ];
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
+
+    public function message() {
+        return $this->hasMany("App\Models\Messages");
     }
+
 }

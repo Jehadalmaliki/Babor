@@ -1,7 +1,15 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 <div>
-    <div class="row justify-content-center" wire:poll="mountComponent()">
-        @if(auth()->user()->is_admin == true)
-            <div class="col-md-4" wire:init>
+
+<div class="container" >
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="cardc chat-app">
+{{-- <div>
+    <div class="row justify-content-center" wire:poll="mountComponent()"> --}}
+        @if(auth()->user()->is_active == true)
+            {{-- <div class="col-md-4" wire:init>
                 <div class="card">
                     <div class="card-header">
                         Users
@@ -10,9 +18,9 @@
                         <ul class="list-group list-group-flush" wire:poll="render">
                             @foreach($users as $user)
                                 @php
-                                    $not_seen = \App\Models\Message::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
+                                    $not_seen = \App\Models\Messages::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
                                 @endphp
-                                <a href="{{ route('inbox.show', $user->id) }}" class="text-dark link">
+                                <a href="{{ route('show', $user->id) }}" class="text-dark link">
                                     <li class="list-group-item" wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
                                         <img class="img-fluid avatar" src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png">
                                         @if($user->is_online) <i class="fa fa-circle text-success online-icon"></i> @endif {{ $user->name }}
@@ -25,24 +33,46 @@
                         </ul>
                     </div>
                 </div>
+            </div> --}}
+            <div id="plist" class="people-list">
+
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    @foreach($users as $user)
+                    @php
+                        $not_seen = \App\Models\Messages::where('user_id', $user->id)->where('receiver', auth()->id())->where('is_seen', false)->get() ?? null
+                    @endphp
+                       <a href="{{ route('show', $user->id) }}" class="text-dark link">
+                    <li class="clearfix " wire:click="getUser({{ $user->id }})" id="user_{{ $user->id }}">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                        <div class="about float-right" dir="rtl">
+                            <div class="name float-end" >{{ $user->name }}</div>
+                            <br/>
+                            @if($user->is_online)<div class="status"> <i class="fa fa-circle online"></i> متصل </div> @endif
+                            @if(filled($not_seen)) <div class="status"> <i class="fa fa-circle offline"></i> {{ $not_seen->count() }} </div>    @endif
+                        </div>
+                    </li>
+                    </a>
+                    @endforeach
+
+                </ul>
             </div>
         @endif
-        <div class="col-md-8">
-            <div class="card">
+        <div class="chat"  dir="rtl">
+
                 <div class="card-header">
                     @if(isset($clicked_user)) {{ $clicked_user->name }}
 
-                    @elseif(auth()->user()->is_admin == true)
-                        Select a user to see the chat
+                    @elseif(auth()->user()->is_active == true)
+                        اختر مستخدم لرؤيه الشات
                     @elseif($admin->is_online)
-                        <i class="fa fa-circle text-success"></i> We are online
+                        <i class="fa fa-circle text-success"></i> نحن متصلين
                     @else
-                        Messages
+                        رساله
                     @endif
                 </div>
                     <div class="card-body message-box">
                         @if(!$messages)
-                            No messages to show
+                         لايوجد اي رساله
                         @else
                             @if(isset($messages))
                                 @foreach($messages as $message)
@@ -70,14 +100,14 @@
                                     </div>
                                 @endforeach
                             @else
-                                No messages to show
+                            لايوجد اي رساله
                             @endif
-                            @if(!isset($clicked_user) and auth()->user()->is_admin == true)
-                                Click on a user to see the messages
+                            @if(!isset($clicked_user) and auth()->user()->is_active == true)
+                             اضغط على مستخدم لرويه الشات
                             @endif
                         @endif
                     </div>
-                @if(auth()->user()->is_admin == false)
+                @if(auth()->user()->is_active == false)
                     <div class="card-footer">
                         <form wire:submit.prevent="SendMessage" enctype="multipart/form-data">
                             <div wire:loading wire:target='SendMessage'>
@@ -114,7 +144,9 @@
                         </form>
                     </div>
                 @endif
-            </div>
+
         </div>
     </div>
 </div>
+            </div>
+        </div>

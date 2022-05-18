@@ -1,5 +1,7 @@
-@extends('layouts.app')
-@section('content')
-<Chat :user="{{auth()->user()}}"></Chat>
+@include('Front.include.header')
 
-@endsection
+@section('content')
+<div class="container">
+    @livewire('message', ['users' => $users, 'messages' => $messages ?? null])
+</div>
+@include('Front.include.footer')

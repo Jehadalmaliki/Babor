@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\service;
 use App\Models\Category;
 use App\Models\question;
+use Illuminate\Support\Facades\Cache;
+use App\Models\User;
+use \App\Models\Messages;
 class SiteController extends Controller
 {
     public function home(){
@@ -68,5 +71,31 @@ class SiteController extends Controller
         $questions = question::where('is_active', '1')->get();
         return view('Front.FAQ', ['questions' => $questions]);
     }
+    public function show($id) {
+        if (auth()->user()->is_active == false) {
+            abort(404);
+        }
+
+        $sender = User::findOrFail($id);
+
+        $users = User::with(['message' => function($query) {
+            return $query->orderBy('created_at', 'DESC');
+        }])->where('is_active', true)
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        if (auth()->user()->is_active == true) {
+            $messages = Messages::where('user_id', auth()->id())->orWhere('receiver', auth()->id())->orderBy('id', 'DESC')->get();
+        } else {
+            $messages = Messages::where('user_id', $sender)->orWhere('receiver', $sender)->orderBy('id', 'DESC')->get();
+        }
+
+        return view('show', [
+            'users' => $users,
+            'messages' => $messages,
+            'sender' => $sender,
+        ]);
+    }
+
 
 }

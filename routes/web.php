@@ -28,6 +28,8 @@ use App\Http\Controllers\Admin\CarCharacteristicsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Authentication\ResetPasswordController;
 use App\Http\Controllers\Authentication\ForgotPasswordController;
+use App\Http\Controllers\InboxController;
+
 
 
 Route::get('/bill', function () {
@@ -189,10 +191,10 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class,'getPasswo
 Route::post('/reset-password', [ResetPasswordController::class,'updatePassword']);
 Route::get('/verify_account/{token}',[AuthController::class,'verifyAccount'])->name('verify_account');
 
-//fallback route
-Route::fallback(function () {
-    return view('Front.errors.404');
-});
+// //fallback route
+// Route::fallback(function () {
+//     return view('Front.errors.404');
+// });
 
 // Route::get('/wallet', function (){
 //     $admin = User::find(1);
@@ -208,11 +210,9 @@ Route::fallback(function () {
 
 // });
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/private',[ App\Http\Controllers\HomeController::class, 'private'])->name('private');
-// Route::get('/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    //    Route::get('/inbox', [App\Http\Controllers\HomeController::class, 'index'])->name('inbox.index');
+    Route::get('/home/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('show');
+   });
 
-// Route::get('messages', [App\Http\Controllers\MessageController::class, 'fetchMessages']);
-// Route::post('messages', [App\Http\Controllers\MessageController::class, 'sendMessage']);
-// Route::get('/private-messages/{user}', [App\Http\Controllers\MessageController::class, 'privateMessages'])->name('privateMessages');
-// Route::post('/private-messages/{user}',  [App\Http\Controllers\MessageController::class, 'sendPrivateMessage'])->name('privateMessages.store');

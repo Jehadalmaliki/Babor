@@ -7,15 +7,15 @@
 <div class="row clearfix">
     <div class="col-lg-12">
         <div class="cardc chat-app">
-            <div id="plist" class="people-list">
-            
+            {{-- <div id="plist" class="people-list">
+
                 <ul class="list-unstyled chat-list mt-2 mb-0">
                     <li class="clearfix ">
                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                         <div class="about float-right" dir="rtl">
                             <div class="name float-end" >الادمن</div>
                             <br/>
-                            <div class="status"> <i class="fa fa-circle offline"></i> اخر ظهور منذ 2 دقيقة </div>                                            
+                            <div class="status"> <i class="fa fa-circle offline"></i> اخر ظهور منذ 2 دقيقة </div>
                         </div>
                     </li>
                     <li class="clearfix active" dir="rtl">
@@ -25,9 +25,9 @@
                             <div class="status"> <i class="fa fa-circle online"></i> متصل </div>
                         </div>
                     </li>
-        
+
                 </ul>
-            </div>
+            </div> --}}
             <div class="chat">
                 <div class="chat-header clearfix">
                     <div class="row">
@@ -47,7 +47,7 @@
                                 <small>متصل   </small>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
                 <div class="chat-history float-end" dir="rtl">
@@ -63,8 +63,8 @@
                             <div class="message-data">
                                 <span class="message-data-time">10:12 AM, اليوم</span>
                             </div>
-                            <div class="message my-message">اهلا تشرفنا   </div>                                    
-                        </li>                               
+                            <div class="message my-message">اهلا تشرفنا   </div>
+                        </li>
                         <li class="clearfix">
                             <div class="message-data">
                                 <span class="message-data-time">10:15 AM, اليوم</span>
@@ -78,7 +78,7 @@
                         <div class="input-group-prepend ">
                             <span class="input-group-text btn btn-warning"><i class="fa fa-send"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="اكتب رسالتك هنا ..">                                    
+                        <input type="text" class="form-control" placeholder="اكتب رسالتك هنا ..">
                     </div>
                 </div>
             </div>
